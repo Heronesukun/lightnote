@@ -52,7 +52,7 @@ class AccountsScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 12),
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: Color(account.color).withValues(alpha: 0.2),
+                    backgroundColor: Color(account.color).withOpacity(0.2),
                     child: Icon(
                       _getAccountIcon(account.type),
                       color: Color(account.color),

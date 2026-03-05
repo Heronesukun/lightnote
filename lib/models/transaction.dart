@@ -71,7 +71,7 @@ class Transaction extends Equatable {
   factory Transaction.fromMap(Map<String, dynamic> map) {
     return Transaction(
       id: map['id'] as String,
-      amount: (map['amount'] as num).abs(),
+      amount: (map['amount'] as num).abs().toDouble(),
       type: TransactionType.values.firstWhere((e) => e.name == map['type']),
       categoryId: map['category_id'] as String,
       accountId: map['account_id'] as String,

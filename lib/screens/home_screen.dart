@@ -226,8 +226,8 @@ class _HomeTab extends StatelessWidget {
                     return ListTile(
                       leading: CircleAvatar(
                         backgroundColor: transaction.type.name == 'income'
-                            ? Colors.green.withValues(alpha: 0.2)
-                            : Colors.red.withValues(alpha: 0.2),
+                            ? Colors.green.withOpacity(0.2)
+                            : Colors.red.withOpacity(0.2),
                         child: Icon(
                           transaction.type.name == 'income'
                               ? Icons.arrow_downward

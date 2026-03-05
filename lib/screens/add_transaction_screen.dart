@@ -311,7 +311,7 @@ class _TypeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: isSelected ? color.withValues(alpha: 0.2) : Colors.grey.withValues(alpha: 0.1),
+      color: isSelected ? color.withOpacity(0.2) : Colors.grey.withOpacity(0.1),
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: onTap,

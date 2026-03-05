@@ -148,7 +148,7 @@ class CategoryManagerScreen extends StatelessWidget {
               final category = categories[index];
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: Color(category.color).withValues(alpha: 0.2),
+                  backgroundColor: Color(category.color).withOpacity(0.2),
                   child: Icon(Icons.category, color: Color(category.color)),
                 ),
                 title: Text(category.name),
