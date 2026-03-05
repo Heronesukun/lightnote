@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import '../models/transaction.dart';
+import '../models/transaction.dart' as models;
+import '../models/transaction.dart' show TransactionType;
 import '../models/account.dart';
 import '../models/category.dart';
 
@@ -111,7 +112,7 @@ class DatabaseRepository {
 
   // ============ Transaction Operations ============
   
-  Future<List<Transaction>> getTransactions({DateTime? month}) async {
+  Future<List<models.Transaction>> getTransactions({DateTime? month}) async {
     final db = await database;
     String whereClause = '';
     List<dynamic> whereArgs = [];
@@ -130,21 +131,21 @@ class DatabaseRepository {
       orderBy: 'date DESC',
     );
     
-    return maps.map((map) => Transaction.fromMap(map)).toList();
+    return maps.map((map) => models.Transaction.fromMap(map)).toList();
   }
 
-  Future<void> insertTransaction(Transaction transaction) async {
+  Future<void> insertTransaction(models.Transaction transaction) async {
     final db = await database;
     await db.insert('transactions', transaction.toMap());
     await _updateAccountBalance(transaction.accountId);
   }
 
-  Future<void> updateTransaction(Transaction transaction) async {
+  Future<void> updateTransaction(models.Transaction transaction) async {
     final db = await database;
     // 获取旧交易记录以恢复余额
     final oldMaps = await db.query('transactions', where: 'id = ?', whereArgs: [transaction.id]);
     if (oldMaps.isNotEmpty) {
-      final oldTransaction = Transaction.fromMap(oldMaps.first);
+      final oldTransaction = models.Transaction.fromMap(oldMaps.first);
       await _updateAccountBalance(oldTransaction.accountId, reverse: true);
     }
     
@@ -156,7 +157,7 @@ class DatabaseRepository {
     final db = await database;
     final maps = await db.query('transactions', where: 'id = ?', whereArgs: [id]);
     if (maps.isNotEmpty) {
-      final transaction = Transaction.fromMap(maps.first);
+      final transaction = models.Transaction.fromMap(maps.first);
       await _updateAccountBalance(transaction.accountId, reverse: true);
     }
     await db.delete('transactions', where: 'id = ?', whereArgs: [id]);

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/account/account_bloc.dart';
+import 'blocs/account/account_event.dart';
 import 'blocs/category/category_bloc.dart';
+import 'blocs/category/category_event.dart';
 import 'blocs/transaction/transaction_bloc.dart';
+import 'blocs/transaction/transaction_event.dart';
 import 'repositories/database_repository.dart';
 import 'screens/home_screen.dart';
 import 'utils/app_theme.dart';
