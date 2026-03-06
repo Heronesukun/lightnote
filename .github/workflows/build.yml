@@ -29,11 +29,13 @@ jobs:
         run: flutter build apk --release
         if: github.event_name == 'release'
         
-      - name: Upload APK to Release
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v1
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
         with:
-          files: build/app/outputs/flutter-apk/app-release.apk
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: lightnote-apk
+          path: build/app/outputs/flutter-apk/
+          
+      - name: Upload to Release using GitHub CLI
+        if: github.event_name == 'release'
+        run: |
+          gh release upload v1.0.0 build/app/outputs/flutter-apk/app-release.apk --repo Heronesukun/lightnote
