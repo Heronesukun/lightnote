@@ -29,20 +29,11 @@ jobs:
         run: flutter build apk --release
         if: github.event_name == 'release'
         
-      - name: Upload APK artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: apk-files
-          path: build/app/outputs/flutter-apk/
-          retention-days: 30
-          
-      - name: Upload Release APK
+      - name: Upload APK to Release
         if: github.event_name == 'release'
-        uses: actions/upload-release-asset@v1
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/app/outputs/flutter-apk/app-release.apk
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: build/app/outputs/flutter-apk/app-release.apk
-          asset_name: lightnote-v${{ github.event.release.tag_name }}.apk
-          asset_content_type: application/vnd.android.package-archive
